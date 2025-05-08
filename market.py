@@ -13,8 +13,8 @@ def get_today_times():
     if schedule.empty:
         return jsonify({"open": None, "close": None, "note": "Market closed."})
 
-    open_time = schedule.iloc[0]['market_open'].isoformat()
-    close_time = schedule.iloc[0]['market_close'].isoformat()
+    open_time = schedule.iloc[0]['market_open'].tz_convert('UTC').isoformat(timespec='seconds')
+    close_time = schedule.iloc[0]['market_close'].tz_convert('UTC').isoformat(timespec='seconds')
     return jsonify({"open": open_time, "close": close_time})
 
 @app.route("/market-times/<datestr>", methods=["GET"])
@@ -29,8 +29,8 @@ def get_market_times(datestr):
     if schedule.empty:
         return jsonify({"open": None, "close": None, "note": "Market closed."})
 
-    open_time = schedule.iloc[0]['market_open'].isoformat()
-    close_time = schedule.iloc[0]['market_close'].isoformat()
+    open_time = schedule.iloc[0]['market_open'].tz_convert('UTC').isoformat(timespec='seconds')
+    close_time = schedule.iloc[0]['market_close'].tz_convert('UTC').isoformat(timespec='seconds')
     return jsonify({"open": open_time, "close": close_time})
 
 if __name__ == "__main__":
